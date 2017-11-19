@@ -1,0 +1,6 @@
+*.db
+.vscode/
+vendor/
+.env
+design_memo.md
+.bundle/
