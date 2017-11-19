@@ -6,7 +6,7 @@ db = SQLite3::Database.new './data/info.db'
 sql = <<-SQL
 create table class_info (
   id INTEGER PRIMARY KEY,
-  type INTEGER
+  type INTEGER,
   class_date TEXT,
   begin_period INTEGER,
   end_period INTEGER,
