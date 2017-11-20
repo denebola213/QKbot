@@ -3,6 +3,49 @@ require 'open-uri'
 require 'date'
 Bundler.require
 
+#DB open
+DB = SQLite3::Database.new('./data/info.db')
+DB.results_as_hash = true
+#DB保存用コマンド
+cmd_class_info = <<-SQL
+insert into class_info(
+  type,
+  class_date,
+  begin_period,
+  end_period,
+  grade,
+  department,
+  class_num,
+  before_name,
+  before_place,
+  before_teacher,
+  after_name,
+  after_place,
+  after_teacher)
+values(
+  :type,
+  :class_date,
+  :begin_period,
+  :end_period,
+  :grade,
+  :department,
+  :class_num,
+  :before_name,
+  :before_place,
+  :before_teacher,
+  :after_name,
+  :after_place,
+  :after_teacher)
+SQL
+cmd_event = <<-SQL
+insert into class_info(
+  date,
+  event)
+values(
+  :date,
+  :event)
+SQL
+
 #html読み込み
 url = 'http://www.ibaraki-ct.ac.jp/?cat=13'
 charset = nil
@@ -91,9 +134,11 @@ info_urls.reverse_each do |info_url|
       event = md[1]
     end
 
-    #debug
-    p date
-    p event
+    #DB(event table)に保存
+    db.execute(
+      cmd_event,
+      date: date,
+      event: event)
 
     loop do
       #@(情報の種類)で区切る
@@ -168,15 +213,26 @@ info_urls.reverse_each do |info_url|
       end
       puts putstr
       #debug_end
-      
 
-
+      #DB(class_info table)へ保存
+      db.execute(
+        cmd_class_info,
+        :type type,
+        :class_date class_date,
+        :begin_period begin_period,
+        :end_period end_period,
+        :grade grade,
+        :department department,
+        :class_num class_num,
+        :before_name before_name,
+        :before_place before_place,
+        :before_teacher before_teacher,
+        :after_name after_name,
+        :after_place after_place,
+        :after_teacher after_teacher)
     end
-
     puts "----------"
-
   end
-
-  
 end
 
+DB.close
