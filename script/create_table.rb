@@ -28,7 +28,8 @@ create table info_of_day (
   id INTEGER PRIMARY KEY,
   date TEXT,
   event TEXT,
-  url TEXT
+  url TEXT,
+  last_update TEXT
 );
 SQL
 db.execute(sql)

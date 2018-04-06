@@ -4,3 +4,5 @@ vendor/
 .env
 design_memo.md
 .bundle/
+test.rb
+*.backup
