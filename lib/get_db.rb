@@ -172,9 +172,6 @@ module QKbot
 
       return message
     end
-
-    
-
   end
 
   class Week
@@ -202,8 +199,4 @@ module QKbot
       end
     end
   end
-
-
-
-
 end
