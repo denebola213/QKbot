@@ -5,6 +5,7 @@ Bundler.require
 
 #"./data/info.db"がないとき、作成
 if Dir::glob("./data/info.db") == Array.new then
+  Dir::mkdir("./data")
   require_relative 'create_table.rb'
 end
 
