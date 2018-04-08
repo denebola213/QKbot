@@ -30,3 +30,4 @@ end
 
 tweet << "\n※情報は不正確な可能性があります。"
 rest_client.update(tweet)
+puts "send tweet!"
