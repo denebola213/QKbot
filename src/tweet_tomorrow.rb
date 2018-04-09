@@ -13,11 +13,11 @@ rest_client = Twitter::REST::Client.new do |config|
   config.access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
 end
 
-info_date = Date.today
+info_date = Date.today + 1
 info = QKbot::Day.new(info_date)
 
 tweet = "#{info_date.month}月#{info_date.day}日 #{info_date.wday_jp}曜日"
-if info.event then
+unless info.event == "" then
   tweet << " <#{info.event}>"
 end
 tweet << "\n"
