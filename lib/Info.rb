@@ -106,6 +106,47 @@ module QKbot
       @type.include?('補講')
     end
 
+    def to_s
+
+      #情報の種類
+      message = "【" + @type.join(', ') + "】"
+      #学年
+      if @grade <= 5 then
+        message << @grade.to_s
+      elsif @grade == 6 then
+        message << "専1"
+      elsif @grade == 7 then
+        message << "専2"
+      end
+      #学科
+      if @department != Array[] then
+        message << @department.join(',')
+      else
+        #学科がなかったら"年"を入れて
+        message << "年"
+      end
+      #組
+      if @num != 0 then
+        #組があったら"年"を消す
+        message.chop!
+        message << "-" + @num.to_s
+      end
+      #授業時間
+      if @period.first == @period.last then
+        message << " " + @period.first.to_s + "限"
+      else
+        message << " " + @period.to_s.tr_s(".","～") + "限"
+      end
+      #教科名
+      if @name.is_a?(String) then
+        message << " " + @name
+      else
+        message << " " + @name[:before] + " => " + @name[:after]
+      end
+
+      return message
+    end
+
   end
 
   class Day
@@ -129,49 +170,14 @@ module QKbot
     end
 
     def to_s
-      message = String.new
+      str = String.new
       @info.each do |info|
-        #情報の種類
-        message << "【" + info.type.join(', ') + "】"
-        #学年
-        if info.grade <= 5 then
-          message << info.grade.to_s
-        elsif info.grade == 6 then
-          message << "専1"
-        elsif info.grade == 7 then
-          message << "専2"
-        end
-        #学科
-        if info.department != Array[] then
-          message << info.department.join(',')
-        else
-          #学科がなかったら"年"を入れて
-          message << "年"
-        end
-        #組
-        if info.num != 0 then
-          #組があったら"年"を消す
-          message.chop!
-          message << "-" + info.num.to_s
-        end
-        #授業時間
-        if info.period.first == info.period.last then
-          message << " " + info.period.first.to_s + "限"
-        else
-          message << " " + info.period.to_s.tr_s(".","～") + "限"
-        end
-        #教科名
-        if info.name.is_a?(String) then
-          message << " " + info.name
-        else
-          message << " " + info.name[:before] + " => " + info.name[:after]
-        end
-        
-        message << "\n"
+        str << info.to_s + "\n"
       end
-
-      return message
+      str
     end
+
+    
   end
 
   class Week
