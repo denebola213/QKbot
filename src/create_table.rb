@@ -1,6 +1,3 @@
-require 'bundler'
-Bundler.require
-
 db = SQLite3::Database.new './data/info.db'
 
 # create table

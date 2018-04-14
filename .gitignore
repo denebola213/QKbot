@@ -6,3 +6,4 @@ design_memo.md
 .bundle/
 test.rb
 *.backup
+*.log

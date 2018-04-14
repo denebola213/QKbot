@@ -1,4 +1,3 @@
-require 'date'
 module QKbot
 
   class Info

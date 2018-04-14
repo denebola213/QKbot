@@ -4,9 +4,6 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
-    debase (0.2.1)
-      debase-ruby_core_source
-    debase-ruby_core_source (0.10.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
@@ -20,17 +17,16 @@ GEM
       domain_name (~> 0.5)
     http-form_data (2.0.0)
     http_parser.rb (0.6.0)
+    logger (1.2.8)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mini_portile2 (2.3.0)
+    minitest (5.11.3)
     multipart-post (2.0.0)
     naught (1.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     public_suffix (3.0.1)
-    rake (12.3.0)
-    ruby-debug-ide (0.6.0)
-      rake (>= 0.8.1)
     simple_oauth (0.3.1)
     sqlite3 (1.3.13)
     thread_safe (0.3.6)
@@ -54,10 +50,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debase
   dotenv
+  logger
+  minitest
   nokogiri
-  ruby-debug-ide
   sqlite3
   twitter
   unicode

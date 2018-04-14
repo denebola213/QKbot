@@ -1,8 +1,3 @@
-require 'bundler'
-require 'open-uri'
-require 'date'
-Bundler.require
-
 #"./data/info.db"がないとき、作成
 if Dir::glob("./data/info.db") == Array.new then
   Dir::mkdir("./data")
@@ -259,6 +254,8 @@ doc.xpath('//*[@id="sub-contents"]/div/div/div/div[1]/div[1]/div').each do |node
         after_name: after_name,
         after_place: nil,
         after_teacher: after_teacher)
+      
+      LOG.info("insert Kyuko infomation in database")
     end
   end
 end
