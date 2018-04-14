@@ -255,7 +255,7 @@ doc.xpath('//*[@id="sub-contents"]/div/div/div/div[1]/div[1]/div').each do |node
         after_place: nil,
         after_teacher: after_teacher)
       
-      LOG.info("insert Kyuko infomation in database")
+      QKbot::LOG.info("insert Kyuko infomation in database")
     end
   end
 end
