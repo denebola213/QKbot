@@ -36,5 +36,5 @@ if 0 < info_date.wday && info_date.wday < 6
 
   QKbot::LOG.info("tweet now! #{before_tweet.uri.to_s}")
 else
-  QKbot::LOG.info("This bot don't tweet saturday and sunday")
+  QKbot::LOG.warn("This bot don't tweet saturday and sunday")
 end
