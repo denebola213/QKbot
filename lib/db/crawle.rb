@@ -2,13 +2,13 @@ module QKbot
   module DB
     def self.crawle
       #"./db/info.sqlite"がないとき、作成
-      if Dir::glob(Dir.pwd + "/db/info.sqlite") == Array.new then
-        Dir::mkdir(Dir.pwd + "/db") unless Dir::exist?(Dir.pwd + "/db")
+      if Dir::glob("./db/info.sqlite") == Array.new then
+        Dir::mkdir("./db") unless Dir::exist?("./db")
         QKbot::DB.create
       end
 
       #DB open
-      db = SQLite3::Database.new(Dir.pwd + '/db/info.sqlite')
+      db = SQLite3::Database.new('./db/info.sqlite')
       #DB保存用コマンド(insert)
       insert_class_info = <<-SQL
       insert into class_info(

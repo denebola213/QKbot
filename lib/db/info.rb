@@ -13,7 +13,7 @@ module QKbot
       #name -> String | Hash : 変更の場合は:beforeと:afterをkeyに持つhash
       #teacher -> String | Hash : 変更の場合は:beforeと:afterをkeyに持つhash
       def initialize(id = nil)
-        db = SQLite3::Database.new(Dir.pwd + "/db/info.sqlite")
+        db = SQLite3::Database.new("./db/info.sqlite")
         db.results_as_hash = true
         db.execute("select * from class_info where id == ?", id) do |row|
           #ID
