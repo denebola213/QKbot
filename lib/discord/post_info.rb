@@ -18,6 +18,9 @@ module QKbot
         info_day = DB::Day.new(date)
 
         channels.each do |channel|
+          #nil
+          next unless channel
+
           channel.send_embed do |embed|
             embed.title = "#{date.month}月#{date.day}日 #{date.wday_jp}曜日"
             unless info_day.event == "" then
@@ -33,8 +36,7 @@ module QKbot
       else
         LOG.warn("This bot don't post message saturday and sunday")
       end
-      
-      
+
     end
   end
 end
