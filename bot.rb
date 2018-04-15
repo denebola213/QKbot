@@ -18,6 +18,7 @@ QKbot.load(__FILE__, "lib")
 
 QKbot::DB.crawle
 
+__END__
 tomorrow = Date.today + 1
 QKbot::Twitter.tweet_info(tomorrow)
 QKbot::Discord.post_info(tomorrow)

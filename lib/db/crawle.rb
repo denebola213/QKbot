@@ -3,8 +3,8 @@ module QKbot
     def self.crawle
       #"./db/info.sqlite"がないとき、作成
       if Dir::glob("./db/info.sqlite") == Array.new then
-        Dir::mkdir("./db")
-        create()
+        Dir::mkdir("./db") unless Dir::exist?("./db")
+        QKbot::DB.create
       end
 
       #DB open
