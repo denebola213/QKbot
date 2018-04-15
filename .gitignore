@@ -7,3 +7,4 @@ design_memo.md
 test.rb
 *.backup
 *.log
+*.sqlite

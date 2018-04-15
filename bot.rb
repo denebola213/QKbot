@@ -5,18 +5,17 @@ Bundler.require
 Dotenv.load
 
 module QKbot
-  class Lib
-    def self.load
-      Dir[File.dirname(__FILE__) + '/lib/*.rb'].each do |file|
-        require_relative file
-      end
+  def self.load file, foldername
+    Dir[File.dirname(file) + "/#{foldername}/*.rb"].each do |file|
+      require_relative file
     end
   end
 
   LOG = Logger.new('QKbot.log')
 end
 
-QKbot::Lib.load
+QKbot.load(__FILE__, "lib")
 
-require_relative 'src/get_web'
-require_relative 'src/tweet_tomorrow'
+tomorrow = Date.today + 1
+QKbot::Twitter.tweet_info(tomorrow)
+QKbot::Discord.post_info(tomorrow)
