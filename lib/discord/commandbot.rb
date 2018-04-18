@@ -8,7 +8,7 @@ module QKbot
 
       # set root user
       discord_commandbot.ready do |event|
-        discord_commandbot.set_user_permission(ENV["DISCORD_ROOTUSERID"].to_i, 5)
+        discord_commandbot.set_user_permission(ENV["DISCORD_ROOTUSER_ID"].to_i, 5)
         LOG.info('start discord command bot!')
       end
 
