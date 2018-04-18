@@ -11,7 +11,7 @@ module QKbot
     end
   end
 
-  LOG = Logger.new('QKbot.log')
+  LOG = Logger.new('./log/QKbot.log')
 end
 
 QKbot.load(__FILE__, "lib")
