@@ -8,4 +8,4 @@ if test ! -d 'log' ;then
 fi
 
 chmod 755 bot.rb
-`which ruby` bot.rb >> ./log/cron.log 2>> ./log/cron_err.log
+`which ruby` noticebot.rb >> ./log/cron.log 2>> ./log/cron_err.log
