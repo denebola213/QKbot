@@ -14,4 +14,4 @@ fi
 chmod -R 755 script
 
 /bin/sh ./script/cronsetting.sh
-/bin/sh ./script/restart_commandbot.sh
+#/bin/sh ./script/restart_commandbot.sh
