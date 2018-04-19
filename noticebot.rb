@@ -10,8 +10,11 @@ module QKbot
       require_relative file
     end
   end
-
-  LOG = Logger.new('./log/QKbot.log')
+  
+  #STDOUT in debug. Log File in release
+  # debug: STDOUT
+  # release: './log/QKbot.log'
+  LOG = Logger.new(STDOUT)
 end
 
 QKbot.load(__FILE__, "lib")

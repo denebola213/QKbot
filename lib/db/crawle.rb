@@ -76,6 +76,8 @@ module QKbot
       #情報が入ってるタグを回す
       doc.xpath('//*[@id="sub-contents"]/div/div/div/div[1]/div[1]/div').each do |nodeset|
 
+        flag_update = false
+
         #情報更新日を取得
         update = Date.new
         tupdate = nodeset.xpath("strong").text
@@ -108,6 +110,8 @@ module QKbot
         if update <= db_update
           next
         end
+
+        flag_update = true
 
         #一週間個別のURLを取得
         week_url = nodeset.css('a')[0][:href]
@@ -258,11 +262,13 @@ module QKbot
               after_place: nil,
               after_teacher: after_teacher)
             
-            QKbot::LOG.info("insert Kyuko infomation in database")
           end
         end
       end
-        
+      
+      # DB更新したら(flag_update == ture)
+      QKbot::LOG.info("insert Kyuko infomation in database") if flag_update
+
       db.close
     end
   end
