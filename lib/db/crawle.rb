@@ -73,10 +73,10 @@ module QKbot
       #parse
       doc = Nokogiri::HTML.parse(html, nil, charset)
 
+      flag_update = false
+
       #情報が入ってるタグを回す
       doc.xpath('//*[@id="sub-contents"]/div/div/div/div[1]/div[1]/div').each do |nodeset|
-
-        flag_update = false
 
         #情報更新日を取得
         update = Date.new
