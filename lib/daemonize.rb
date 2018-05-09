@@ -40,7 +40,7 @@ module QKbot
 
     def daemonize
       begin
-        Process.daemon(true, true)
+        Process.daemon(true)
         # put pid
         File.open(@pid_file_path, 'w') do |f|
           f << Process.pid
