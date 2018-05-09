@@ -7,45 +7,14 @@ require_relative 'lib/daemonize'
 require_relative 'lib/db/crawle'
 require_relative 'lib/twitter/tweet_info'
 require_relative 'lib/discord/post_info'
+require_relative 'lib/logger'
 
-module QKbot
-  class Logger
-    def initialize(&bot)
-      @bot_handler = bot
-    end
-
-    def debug(message)
-      @bot_handler.call("<#{Time.now.to_s}> [DEBUG] : " + message)
-    end
-    
-    def info(message)
-      @bot_handler.call("<#{Time.now.to_s}> [INFO] : " + message)
-    end
-
-    def warn(message)
-      @bot_handler.call("<#{Time.now.to_s}> [WARN] : " + message)
-    end
-
-    def error(message)
-      @bot_handler.call("<#{Time.now.to_s}> [ERROR] : " + message)
-    end
-
-    def fatal(message)
-      @bot_handler.call("<#{Time.now.to_s}> [FATAL] : " + message)
-    end
-
-  end
-end
-
-logger = QKbot::Logger.new do |message|
-  webhook_url = URI.parse(ENV['WEBHOOKS_URL']) 
-  Net::HTTP.post_form(webhook_url, {'content' => message})
-end
+logger = QKbot::Logger.new(ENV['WEBHOOKS_URL'])
 
 notify_daemon = QKbot::Daemon.new("./notify.pid", logger, true) do
 
   flag = false
-  
+
   loop do
     sleep(10)
     QKbot::DB.crawle
