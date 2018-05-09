@@ -1,7 +1,6 @@
 module QKbot
   module Twitter
     class TweetString < String
-      
       def size
         str = self.to_s
         
