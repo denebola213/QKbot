@@ -4,13 +4,15 @@ module QKbot
     attr_writer :stop_handler
     # === WARNING ===
     # If this daemon include loop process, you have to write the termination process using "self.flag_int"
-    def initialize(pid_file, log = Logger.new(STDOUT), loop_process = false, &handler)
+    def initialize(pid_file, log = Logger.new(STDOUT), name = "", loop_process = false, &handler)
       # Interrupt flag
       @flag_int = false
       # logger object
       @log = log
       # Daemon handler
       @execute_handler = handler
+      # Daemon name
+      @name = name
 
       # pid file path
       @pid_file_path = pid_file
@@ -23,13 +25,13 @@ module QKbot
     def run
       begin
         # start message
-        @log.info("Start!")
+        @log.info("#{@name} Start!")
 
         daemonize()
         set_trap()
         execute()
 
-        @log.info("Stop")
+        @log.info("#{@name} Stop")
       rescue => exception
         @log.error(exception.backtrace.to_s.tr(",", "\n").tr("`", "^") + "\n" + exception.message)
         exit 1

@@ -4,7 +4,7 @@ require_relative 'create'
 
 module QKbot
   module DB
-    def self.crawle
+    def self.crawle(logger)
       #"./db/info.sqlite"がないとき、作成
       if Dir::glob("./db/info.sqlite") == Array.new then
         Dir::mkdir("./db") unless Dir::exist?("./db")
@@ -271,7 +271,7 @@ module QKbot
       end
       
       # DB更新したら(flag_update == ture)
-      QKbot::LOG.info("insert Kyuko infomation in database") if flag_update
+      logger.info("insert Kyuko infomation in database") if flag_update
 
       db.close
     end

@@ -11,7 +11,7 @@ require_relative 'lib/logger'
 
 logger = QKbot::Logger.new(ENV['WEBHOOKS_URL'])
 
-notify_daemon = QKbot::Daemon.new("./notify.pid", logger, true) do
+notify_daemon = QKbot::Daemon.new("./notify.pid", logger, 'QK notify bot', true) do
 
   flag = false
 

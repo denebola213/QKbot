@@ -9,7 +9,7 @@ require_relative 'lib/logger'
 
 logger = QKbot::Logger.new(ENV['WEBHOOKS_URL'])
 
-bot_daemon = QKbot::Daemon.new("./bot.pid", logger) do
+bot_daemon = QKbot::Daemon.new("./bot.pid", logger, 'QK command bot') do
   QKbot::Discord.commandbot(Logger.new("./QKbot.log"), ENV)
 end
 
