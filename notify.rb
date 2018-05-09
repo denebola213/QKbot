@@ -17,7 +17,7 @@ notify_daemon = QKbot::Daemon.new("./notify.pid", logger, 'QK notify bot', true)
 
   loop do
     sleep(10)
-    QKbot::DB.crawle
+    QKbot::DB.crawle(logger)
     nowtime = Time.now
     if nowtime.hour == 20 && (0..4) === nowtime.wday then
       unless flag
