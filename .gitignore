@@ -8,3 +8,4 @@ test.rb
 *.backup
 *.log
 *.sqlite
+*.pid

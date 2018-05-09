@@ -1,9 +1,12 @@
+require_relative '../db/info'
+require_relative '../date_wday_jp'
+
 module QKbot
   module Discord
-    def self.post_info date
+    def self.post_info(date, logger, env)
       discord_bot = Discordrb::Bot.new(
-        token: ENV["DISCORD_TOKEN"],
-        client_id: ENV["DISCORD_CLIENT_ID"])
+        token: env["DISCORD_TOKEN"],
+        client_id: env["DISCORD_CLIENT_ID"])
 
       discord_bot.run :async
 
@@ -32,9 +35,9 @@ module QKbot
           end
         end
 
-        LOG.info("post message to discord now!")
+        logger.info("post message to discord now!")
       else
-        LOG.warn("This bot don't post message saturday and sunday")
+        logger.warn("This bot don't post message saturday and sunday")
       end
 
     end

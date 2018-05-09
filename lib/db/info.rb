@@ -1,3 +1,5 @@
+require 'date'
+
 module QKbot
   module DB
     class Info
@@ -139,7 +141,7 @@ module QKbot
         #教科名
         if @name.is_a?(String) then
           message << " " + @name
-        else
+        elsif @name != nil
           message << " " + @name[:before] + " => " + @name[:after]
         end
   
@@ -147,17 +149,17 @@ module QKbot
       end
   
     end
-
+  
     class Day
       attr_reader :date, :info, :url, :event
-
+  
       def initialize(date)
         @date = date
         @info = Array.new
         ids = Array.new
         SQLite3::Database.new('./db/info.sqlite') do |db|
           ids = db.execute("select id from class_info where class_date == ?", @date.strftime("%Y-%m-%d"))
-
+  
           db.execute("select event, url from info_of_day where date == ?", @date.strftime("%Y-%m-%d")) do |row|
             @event = row[0]
             @url = row[1]
@@ -167,7 +169,7 @@ module QKbot
           @info << Info.new(id[0].to_i)
         end
       end
-
+  
       def to_s
         str = String.new
         @info.each do |info|
@@ -175,10 +177,10 @@ module QKbot
         end
         str
       end
-
+  
       
     end
-
+  
     class Week
       attr_reader :cweek, :cwyear, :monday, :tuesday, :wednesday, :thursday, :friday
       #cwy => 暦週における年をIntegerで
@@ -206,4 +208,3 @@ module QKbot
     end
   end
 end
-    

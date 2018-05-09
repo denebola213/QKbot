@@ -1,26 +1,71 @@
 require 'bundler'
-require 'date'
-require 'open-uri'
+require 'logger'
 Bundler.require
 Dotenv.load
 
+require_relative 'lib/daemonize'
+require_relative 'lib/db/crawle'
+require_relative 'lib/twitter/tweet_info'
+require_relative 'lib/discord/post_info'
+
 module QKbot
-  def self.load file, foldername
-    Dir[File.dirname(file) + "/#{foldername}/*.rb"].each do |file|
-      require_relative file
+  class Logger
+    def initialize(&bot)
+      @bot_handler = bot
     end
+
+    def debug(message)
+      @bot_handler.call("<#{Time.now.to_s}> [DEBUG] : " + message)
+    end
+    
+    def info(message)
+      @bot_handler.call("<#{Time.now.to_s}> [INFO] : " + message)
+    end
+
+    def warn(message)
+      @bot_handler.call("<#{Time.now.to_s}> [WARN] : " + message)
+    end
+
+    def error(message)
+      @bot_handler.call("<#{Time.now.to_s}> [ERROR] : " + message)
+    end
+
+    def fatal(message)
+      @bot_handler.call("<#{Time.now.to_s}> [FATAL] : " + message)
+    end
+
   end
-  
-  #STDOUT in debug. Log File in release
-  # debug: STDOUT
-  # release: './log/QKbot.log'
-  LOG = Logger.new(STDOUT)
 end
 
-QKbot.load(__FILE__, "lib")
+logger = QKbot::Logger.new do |message|
+  webhook_url = URI.parse(ENV['WEBHOOKS_URL']) 
+  Net::HTTP.post_form(webhook_url, {'content' => message})
+end
 
-QKbot::DB.crawle
+notify_daemon = QKbot::Daemon.new("./notify.pid", logger, true) do
 
-tomorrow = Date.today + 1
-QKbot::Twitter.tweet_info(tomorrow)
-QKbot::Discord.post_info(tomorrow)
+  flag = false
+  
+  loop do
+    sleep(10)
+    QKbot::DB.crawle
+    nowtime = Time.now
+    if nowtime.hour == 20 && (0..4) === nowtime.wday then
+      unless flag
+        tomorrow = Date.today + 1
+        QKbot::Twitter.tweet_info(tomorrow, logger, ENV)
+        QKbot::Discord.post_info(tomorrow, logger, ENV)
+        flag = true
+      end
+    else
+      flag = false
+    end
+
+    # interrupt process
+    if notify_daemon.flag_int
+      break
+    end
+  end
+end
+
+notify_daemon.run

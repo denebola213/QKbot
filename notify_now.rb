@@ -10,17 +10,12 @@ module QKbot
       require_relative file
     end
   end
-  
-  #STDOUT in debug. Log File in release
-  # debug: STDOUT
-  # release: './log/QKbot.log'
-  LOG = Logger.new(STDOUT)
 end
-
+logger = Logger.new(STDOUT)
 QKbot.load(__FILE__, "lib")
 
 QKbot::DB.crawle
 
-tomorrow = Date.today
-QKbot::Twitter.tweet_info(tomorrow)
-QKbot::Discord.post_info(tomorrow)
+today = Date.today
+QKbot::Twitter.tweet_info(today, logger, ENV)
+QKbot::Discord.post_info(today, logger, ENV)

@@ -1,12 +1,16 @@
+require_relative '../db/info'
+require_relative 'tweetstring'
+require_relative '../date_wday_jp'
+
 module QKbot
   module Twitter
 
-    def self.tweet_info date
+    def self.tweet_info(date, logger, env)
       rest_client = ::Twitter::REST::Client.new do |config|
-        config.consumer_key = ENV["CONSUMER_KEY"]
-        config.consumer_secret = ENV["CONSUMER_SECRET"]
-        config.access_token = ENV["ACCESS_TOKEN"]
-        config.access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
+        config.consumer_key = env["CONSUMER_KEY"]
+        config.consumer_secret = env["CONSUMER_SECRET"]
+        config.access_token = env["ACCESS_TOKEN"]
+        config.access_token_secret = env["ACCESS_TOKEN_SECRET"]
       end
 
       # 土曜,日曜は通知しない
@@ -37,9 +41,9 @@ module QKbot
           end
         end
       
-        LOG.info("tweet now! #{before_tweet.uri.to_s}")
+        logger.info("tweet now! #{before_tweet.uri.to_s}")
       else
-        LOG.warn("This bot don't tweet saturday and sunday")
+        logger.warn("This bot don't tweet saturday and sunday")
       end
     end
     

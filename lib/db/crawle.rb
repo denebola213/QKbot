@@ -1,3 +1,7 @@
+require 'date'
+require 'open-uri'
+require_relative 'create'
+
 module QKbot
   module DB
     def self.crawle
