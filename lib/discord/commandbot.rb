@@ -14,7 +14,7 @@ module QKbot
       end
 
       # ping test
-      discord_commandbot.command(:ping, permission_level: 5) do |event|
+      discord_commandbot.command(:ping) do |event|
         pong_message = event.send_message("pong")
         pong_message.edit("pong #{(pong_message.timestamp - event.message.timestamp) * 1000}ms")
       end
