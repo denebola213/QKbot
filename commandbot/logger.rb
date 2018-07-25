@@ -1,3 +1,5 @@
+require 'uri'
+
 module QKbot
   class Logger
     def initialize(url)
