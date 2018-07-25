@@ -1,7 +1,7 @@
 module QKbot
   module DB
     def self.create
-      db = SQLite3::Database.new './db/info.sqlite'
+      db = SQLite3::Database.new DBPATH
 
       # create table
       sql = <<-SQL

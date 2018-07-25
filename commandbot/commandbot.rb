@@ -10,7 +10,7 @@ module QKbot
       # set root user
       discord_commandbot.ready do |event|
         discord_commandbot.set_user_permission(env["DISCORD_ROOTUSER_ID"].to_i, 5)
-        logger.info('start discord command bot!')
+        logger.info('start QK Command Bot!')
       end
 
       # ping test
@@ -24,13 +24,13 @@ module QKbot
       # BOTが導入されているサーバーの名前
       discord_commandbot.command(:addservers, permission_level: 5, help_available: false) do |event|
         discord_commandbot.servers.each_value do |server|
-          event << server.name
+          event << server.name + ": " + server.text_channels[0].name
         end
         event << ''
       end
 
       # running commandbot
-      discord_commandbot.run(:async)
+      discord_commandbot.run
     end
   end
 end

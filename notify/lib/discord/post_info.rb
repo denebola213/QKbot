@@ -13,7 +13,7 @@ module QKbot
       # default channel を探す
       channels = Array.new
       discord_bot.servers.each_value do |server|
-        channels << server.default_channel
+        channels << server.text_channels[0]
       end
       
       # 土曜,日曜は通知しない

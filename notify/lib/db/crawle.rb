@@ -4,15 +4,18 @@ require_relative 'create'
 
 module QKbot
   module DB
+    DBPATH = File.expand_path('../../../db/info.sqlite', __FILE__)
+    DBDIR = File.expand_path('../../../db', __FILE__)
+
     def self.crawle(logger)
-      #"./db/info.sqlite"がないとき、作成
-      if Dir::glob("./db/info.sqlite") == Array.new then
-        Dir::mkdir("./db") unless Dir::exist?("./db")
+      #"DBPATH"がないとき、作成
+      if Dir::glob(DBPATH) == Array.new then
+        Dir::mkdir(DBDIR) unless Dir::exist?(DBDIR)
         QKbot::DB.create
       end
 
       #DB open
-      db = SQLite3::Database.new('./db/info.sqlite')
+      db = SQLite3::Database.new(DBPATH)
       #DB保存用コマンド(insert)
       insert_class_info = <<-SQL
       insert into class_info(

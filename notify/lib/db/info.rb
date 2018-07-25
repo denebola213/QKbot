@@ -15,7 +15,7 @@ module QKbot
       #name -> String | Hash : 変更の場合は:beforeと:afterをkeyに持つhash
       #teacher -> String | Hash : 変更の場合は:beforeと:afterをkeyに持つhash
       def initialize(id = nil)
-        db = SQLite3::Database.new("./db/info.sqlite")
+        db = SQLite3::Database.new DBPATH
         db.results_as_hash = true
         db.execute("select * from class_info where id == ?", id) do |row|
           #ID
@@ -157,7 +157,7 @@ module QKbot
         @date = date
         @info = Array.new
         ids = Array.new
-        SQLite3::Database.new('./db/info.sqlite') do |db|
+        SQLite3::Database.new DBPATH do |db|
           ids = db.execute("select id from class_info where class_date == ?", @date.strftime("%Y-%m-%d"))
   
           db.execute("select event, url from info_of_day where date == ?", @date.strftime("%Y-%m-%d")) do |row|

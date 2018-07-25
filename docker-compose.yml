@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  notify:
+    build: notify
+    volumes:
+      - ./notify:/usr/src/qkbot/notify
+    command: ruby /usr/src/qkbot/notify/notify.rb
+  
+  command_bot:
+    build: commandbot
+    volumes:
+      - ./commandbot:/usr/src/qkbot/commandbot
+    command: ruby /usr/src/qkbot/commandbot/bot.rb
+  

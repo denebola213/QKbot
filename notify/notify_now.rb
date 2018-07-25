@@ -4,17 +4,14 @@ require 'open-uri'
 Bundler.require
 Dotenv.load
 
-module QKbot
-  def self.load file, foldername
-    Dir[File.dirname(file) + "/#{foldername}/*.rb"].each do |file|
-      require_relative file
-    end
-  end
-end
-logger = Logger.new(STDOUT)
-QKbot.load(__FILE__, "lib")
+require_relative 'lib/db/crawle'
+require_relative 'lib/twitter/tweet_info'
+require_relative 'lib/discord/post_info'
+require_relative 'lib/logger'
 
-QKbot::DB.crawle
+logger = Logger.new(STDOUT)
+
+QKbot::DB.crawle(logger)
 
 today = Date.today
 QKbot::Twitter.tweet_info(today, logger, ENV)
