@@ -7,7 +7,7 @@ services:
       - ./notify:/usr/src/qkbot/notify
     command: ruby /usr/src/qkbot/notify/notify.rb
   
-  command_bot:
+  commandbot:
     build: commandbot
     volumes:
       - ./commandbot:/usr/src/qkbot/commandbot

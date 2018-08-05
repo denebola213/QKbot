@@ -9,3 +9,4 @@ test.rb
 *.log
 *.sqlite
 *.pid
+.qkbot*

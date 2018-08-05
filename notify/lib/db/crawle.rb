@@ -72,11 +72,16 @@ module QKbot
       #html読み込み
       url = 'http://www.ibaraki-ct.ac.jp/?cat=13'
       charset = nil
-      html = open(url) do |f|
-        charset = f.charset
-        f.read
+      begin
+        html = open(url) do |f|
+          charset = f.charset
+          f.read
+        end
+      rescue OpenURI::HTTPError => ex
+        # ibaraki-ct.ac.jpが落ちてたりしたら、クロールせず終わる
+        logger.warn("[" + ex.class + "] " + ex.message)
+        return
       end
-
       #parse
       doc = Nokogiri::HTML.parse(html, nil, charset)
 
