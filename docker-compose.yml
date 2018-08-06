@@ -1,5 +1,9 @@
 version: '2'
 
+volumes:
+  postgres-data:
+    driver: 'local'
+
 services:
   notify:
     build: notify
@@ -12,4 +16,11 @@ services:
     volumes:
       - ./commandbot:/usr/src/qkbot/commandbot
     command: ruby /usr/src/qkbot/commandbot/bot.rb
+
+  postgres:
+    image: postgres:9.3
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
   
