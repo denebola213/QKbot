@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
-Dotenv.load
+Dotenv.load(File.expand_path('../.env', File.dirname(File.expand_path(__FILE__))))
 
 require_relative 'commandbot'
 require_relative 'logger'

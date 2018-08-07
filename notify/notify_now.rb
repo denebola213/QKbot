@@ -2,7 +2,7 @@ require 'bundler'
 require 'date'
 require 'open-uri'
 Bundler.require
-Dotenv.load
+Dotenv.load(File.expand_path('../.env', File.dirname(File.expand_path(__FILE__))))
 
 require_relative 'lib/db/crawle'
 require_relative 'lib/twitter/tweet_info'

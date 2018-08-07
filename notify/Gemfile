@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-# gem "rails"
-gem "twitter", "~> 6.2.0"
-gem "nokogiri", "~> 1.8.2"
-gem "unicode", "~> 0.4.4.4"
-gem "sqlite3", "~> 1.3.13"
-gem "dotenv", "~> 2.2.1"
-gem "logger", "~> 1.2.8"
-gem "discordrb", "~> 3.2.1"
+gem 'twitter', '~> 6.2.0'
+gem 'nokogiri', '~> 1.8.2'
+gem 'unicode', '~> 0.4.4.4'
+gem 'sqlite3', '~> 1.3.13'
+gem 'dotenv', '~> 2.2.1'
+gem 'logger', '~> 1.2.8'
+gem 'discordrb', '~> 3.2.1'
+# gem 'pg', '~> 0.18.4'

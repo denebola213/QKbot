@@ -1,12 +1,6 @@
-*.db
 .vscode/
 vendor/
-.env
-design_memo.md
+*.env
 .bundle/
-test.rb
 *.backup
 *.log
-*.sqlite
-*.pid
-.qkbot*
