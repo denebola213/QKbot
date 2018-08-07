@@ -91,6 +91,9 @@ module QKbot
           else
             @teacher = {before: row['before_teacher'], after: row['after_teacher']}
           end
+
+          #場所変更
+          @place = row['after_place']
         end
         db.close
       end
@@ -143,6 +146,10 @@ module QKbot
           message << " " + @name
         elsif @name != nil
           message << " " + @name[:before] + " => " + @name[:after]
+        end
+        #場所変更
+        if @place.is_a?(String) then
+          message << " [場所変更]" + @place
         end
   
         return message

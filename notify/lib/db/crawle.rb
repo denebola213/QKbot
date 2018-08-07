@@ -148,7 +148,7 @@ module QKbot
         day_info = day_info.gsub(/◎/, "@@") #補講 ->後でbit fieldへ
         day_info = day_info.gsub(/<\/?\w+>/, " ")
         day_info = day_info.gsub(/\s+/, " ")
-
+        
         loop do
           #日付のところで分解
           s = day_info.rpartition(/\b\d+[月\/]/u)
@@ -256,6 +256,11 @@ module QKbot
             teacher = a_info.scan(/\((\S+)\)/u).flatten
             before_teacher = teacher.first
             after_teacher = teacher.last
+            #教室変更
+            after_place = String.new
+            day_info.match(/【教室変更】(.+)$/) do |md|
+              after_place = md[1]
+            end
 
             #DB(class_info table)へ保存
             db.execute(
@@ -271,7 +276,7 @@ module QKbot
               before_place: nil,
               before_teacher: before_teacher,
               after_name: after_name,
-              after_place: nil,
+              after_place: after_place,
               after_teacher: after_teacher)
             
           end
