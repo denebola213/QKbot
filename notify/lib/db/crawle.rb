@@ -4,8 +4,8 @@ require_relative 'create'
 
 module QKbot
   module DB
-    DBPATH = File.expand_path('../../../db/info.sqlite', __FILE__)
-    DBDIR = File.expand_path('../../../db', __FILE__)
+    DBPATH = '/var/lib/qkbot/info.sqlite'
+    DBDIR = '/var/lib/qkbot'
 
     def self.crawle(logger)
       #"DBPATH"がないとき、作成
