@@ -1,0 +1,87 @@
+!!!
+%html
+  %head
+    %title QKbot - web ver.
+    
+    :css
+      body {
+        width: 50%;
+      }
+      #condition {
+        
+        margin: auto;
+      }
+      #result {
+        
+        margin: auto;
+      }
+
+  %body
+    %div#condition
+      %form{method: 'get', action: '/'}
+        %p
+          条件:
+          %select{name: 'grade'}
+            %option{value: ''} 未指定
+            %option{value: '1'} 1
+            %option{value: '2'} 2
+            %option{value: '3'} 3
+            %option{value: '4'} 4
+            %option{value: '5'} 5
+            %option{value: '6'} 専1
+            %option{value: '7'} 専2
+          年
+          %select{name: 'deparment'}
+            %option{value: ''} 未指定
+            %option{value: 'M'} M
+            %option{value: 'S'} S
+            %option{value: 'E'} E
+            %option{value: 'D'} D
+            %option{value: 'C'} C
+            %option{value: 'AM'} AM
+            %option{value: 'AE'} AE
+            %option{value: 'AI'} AI
+            %option{value: 'AC'} AC
+          科
+          %select{name: 'num'}
+            %option{value: ''} 未指定
+            %option{value: '1'} 1
+            %option{value: '2'} 2
+            %option{value: '3'} 3
+            %option{value: '4'} 4
+            %option{value: '5'} 5
+          組 | 日付
+          %input{type: 'date', name: 'date'}
+        %p
+          ソート:
+          %input{type: 'radio', name: 'sort', value: 'date'} 日付 
+          %input{type: 'radio', name: 'sort', value: 'grade'} 学年 
+          %input{type: 'submit', value: '検索'}
+        %p
+          並び順: #{@sort} 検索条件: #{@grade}年 #{@deparment}科 #{@num}組 #{@date}
+
+    %div#result  
+      %table{border: 1}
+        %thead
+          %tr
+            %th ID
+            %th 日付
+            %th タイプ
+            %th 学年
+            %th 学科
+            %th クラス
+            %th 時間
+            %th 教科
+            %th 場所変更
+        %tbody
+          - @info.each do |a_info|
+            %tr
+              %td= a_info.id.to_s
+              %td= a_info.date.strftime("%Y-%m-%d")
+              %td= a_info.type_to_s
+              %td= a_info.grade_to_s
+              %td= a_info.department_to_s
+              %td= a_info.num_to_s
+              %td= a_info.period_to_s
+              %td= a_info.name_to_s
+              %td= a_info.place_to_s

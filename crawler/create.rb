@@ -1,10 +1,10 @@
 module QKbot
   module DB
     def self.create
-      db = SQLite3::Database.new DBPATH
+      db = SQLite3::Database.new ENV['DBPATH']
 
       # create table
-      sql = <<-SQL
+      class_info = <<-SQL
       create table class_info (
         id INTEGER PRIMARY KEY,
         type INTEGER,
@@ -22,9 +22,8 @@ module QKbot
         after_teacher TEXT
       );
       SQL
-      db.execute(sql)
       
-      sql = <<-SQL
+      info_of_day = <<-SQL
       create table info_of_day (
         id INTEGER PRIMARY KEY,
         date TEXT,
@@ -33,9 +32,8 @@ module QKbot
         last_update TEXT
       );
       SQL
-      db.execute(sql)
       
-      sql = <<-SQL
+      user = <<-SQL
       create table user (
         twitter_id INTEGER PRIMARY KEY,
         service INTEGER,
@@ -44,8 +42,14 @@ module QKbot
         class_num INTEGER
       );
       SQL
+
+      db.transaction do
+        db.execute(class_info)
+        db.execute(info_of_day)
+        db.execute(user)
+      end
       
-      db.execute(sql)
+      db.close
     end
     
   end

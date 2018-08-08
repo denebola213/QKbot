@@ -1,8 +1,7 @@
 require 'bundler'
 Bundler.require
-Dotenv.load(File.expand_path('../.env', File.dirname(File.expand_path(__FILE__))))
+Dotenv.load(File.expand_path
 
-require_relative 'lib/db/crawle'
 require_relative 'lib/twitter/tweet_info'
 require_relative 'lib/discord/post_info'
 require_relative 'lib/logger'
@@ -14,7 +13,6 @@ logger.info "start QK Notify Bot!"
 #         false: 通知してない
 flag = false
 loop do
-  QKbot::DB.crawle(logger)
   nowtime = Time.now
   # UST 11:00, JST 20:00
   if nowtime.hour == (20 - 9) && (0..4) === nowtime.wday then

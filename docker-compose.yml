@@ -9,18 +9,46 @@ volumes:
 services:
   notify:
     build: notify
+    depends_on:
+      - crawler
     volumes:
       - ./notify:/usr/src/qkbot/notify
       - sqlite-data:/var/lib/qkbot
-      - ./.env:/usr/src/qkbot/.env
+      - ./.env:/usr/src/qkbot/notify/.env
     command: ruby /usr/src/qkbot/notify/notify.rb
   
   commandbot:
     build: commandbot
     volumes:
       - ./commandbot:/usr/src/qkbot/commandbot
-      - ./.env:/usr/src/qkbot/.env
+      - ./.env:/usr/src/qkbot/commandbot/.env
     command: ruby /usr/src/qkbot/commandbot/bot.rb
+
+  crawler:
+    build: crawler
+    volumes:
+      - ./crawler:/usr/src/qkbot/crawler
+      - ./.env:/usr/src/qkbot/crawler/.env
+      - sqlite-data:/var/lib/qkbot
+    command: ruby /usr/src/qkbot/crawler/crawler.rb
+
+  app:
+    build: app
+    depends_on:
+      - crawler
+    volumes:
+      - ./crawler:/usr/src/qkbot/app
+      - ./.env:/usr/src/qkbot/app/.env
+      - sqlite-data:/var/lib/qkbot
+    command: ruby /usr/src/qkbot/app/app.rb
+
+  web:
+    image: nginx
+    volumes:
+      - ./teaser:/usr/share/nginx/30
+      - ./teaser.conf:/etc/nginx/conf.d/teaser.conf
+    ports:
+      - "80:80"
 
   # postgres:
   #   image: postgres:9.3
