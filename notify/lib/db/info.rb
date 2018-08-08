@@ -207,7 +207,7 @@ module QKbot
         ids = Array.new
         SQLite3::Database.new ENV['DBPATH'] do |db|
           db.execute("select id from class_info where class_date == ?", @date.strftime("%Y-%m-%d")) do |id|
-            @info << Info.new(id.to_i)
+            @info << Info.new(id[0].to_i)
           end
   
           db.execute("select event, url from info_of_day where date == ?", @date.strftime("%Y-%m-%d")) do |row|
