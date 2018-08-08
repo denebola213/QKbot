@@ -4,15 +4,33 @@
     %title QKbot - web ver.
     
     :css
-      body {
-        width: 50%;
+      table {
+        width: 100%;
+        table-layout: auto;
+      }
+      table,th,td {
+        border: 1px solid #bbb;
+      }
+      .id {
+         width: 20px;
+         text-align: center;
+      }
+      .date {
+         width: 100px;
+         text-align: center;
+      }
+      .type {
+         width: 50px;
+         text-align: center;
+      }
+      .period  {
+         width: 60px;
       }
       #condition {
-        
         margin: auto;
       }
       #result {
-        
+        width: 75%;
         margin: auto;
       }
 
@@ -64,24 +82,24 @@
       %table{border: 1}
         %thead
           %tr
-            %th ID
-            %th 日付
-            %th タイプ
+            %th.id ID
+            %th.date 日付
+            %th.type タイプ
             %th 学年
             %th 学科
             %th クラス
-            %th 時間
+            %th.period 時間
             %th 教科
             %th 場所変更
         %tbody
           - @info.each do |a_info|
             %tr
-              %td= a_info.id.to_s
-              %td= a_info.date.strftime("%Y-%m-%d")
-              %td= a_info.type_to_s
+              %td.id= a_info.id.to_s
+              %td.date= a_info.date.strftime("%Y-%m-%d")
+              %td.type= a_info.type_to_s
               %td= a_info.grade_to_s
               %td= a_info.department_to_s
               %td= a_info.num_to_s
-              %td= a_info.period_to_s
+              %td.period= a_info.period_to_s
               %td= a_info.name_to_s
               %td= a_info.place_to_s

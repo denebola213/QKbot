@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
-Dotenv.load(File.expand_path
+Dotenv.load
 
 require_relative 'lib/twitter/tweet_info'
 require_relative 'lib/discord/post_info'

@@ -256,7 +256,7 @@ module QKbot
             after_teacher = teacher.last
             #教室変更
             after_place = String.new
-            day_info.match(/【教室変更】(.+)$/) do |md|
+            day_info.match(/【教室変更】([^@]+)@/) do |md|
               after_place = md[1]
             end
 

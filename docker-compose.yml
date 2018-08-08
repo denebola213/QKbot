@@ -37,17 +37,21 @@ services:
     depends_on:
       - crawler
     volumes:
-      - ./crawler:/usr/src/qkbot/app
+      - ./app:/usr/src/qkbot/app
       - ./.env:/usr/src/qkbot/app/.env
       - sqlite-data:/var/lib/qkbot
-    command: ruby /usr/src/qkbot/app/app.rb
+    command: bundle exec unicorn -c unicorn.rb -E development
+    ports:
+      - "3000:3000"
 
-  # web:
-  #   image: nginx
-  #   volumes:
-  #     - ./web/qk.conf:/etc/nginx/conf.d/qk.conf
-  #   ports:
-  #     - "80:80"
+  web:
+    image: nginx
+    depends_on:
+      - app
+    volumes:
+      - ./web/qk.conf:/etc/nginx/conf.d/qk.conf
+    ports:
+      - "80:80"
 
   # postgres:
   #   image: postgres:9.3
