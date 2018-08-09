@@ -7,6 +7,7 @@ e-創造工学の授業のために作成した、web app を追加したブラ�
 ## Requirements
 - Docker 18.06+ (Docker running on my server is ver.18.06.0-ce)
 - Docker-compose 1.17.1
+- used TwitterAPI and DiscordAPI
 
 ## Usage
 ### QKbotのディレクトリに移動  
