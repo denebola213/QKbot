@@ -1,6 +1,6 @@
 .vscode/
 vendor/
-*.env
+.env
 .bundle/
 *.backup
 *.log
