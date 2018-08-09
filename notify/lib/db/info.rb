@@ -189,7 +189,7 @@ module QKbot
         #教科名
         message << " " + self.name_to_s
         #場所変更
-        if @place.is_a?(String) then
+        if @place != "" then
           message << " [場所変更]" + @place
         end
   
