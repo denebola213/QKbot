@@ -105,7 +105,7 @@ module QKbot
         
         #情報の最初の日付
         first_date = Date.new
-        tfirst_date = Unicode::nfkc(nodeset.xpath("div/p[2]/span[1]").text)
+        tfirst_date = Unicode::nfkc(nodeset.xpath("div/p[2]/span").text)
         tfirst_date.match(/(\d+)\/(\d+)/) do |md|
           first_date = Date.new(update.year, md[1].to_i, md[2].to_i)
         end
