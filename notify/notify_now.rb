@@ -15,4 +15,4 @@ QKbot::DB.crawle(logger)
 
 today = Date.today
 QKbot::Twitter.tweet_info(today, logger, ENV)
-QKbot::Discord.post_info(today, logger, ENV)
+QKbot::Discord.post_allserver(today, logger, ENV)

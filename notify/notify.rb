@@ -21,7 +21,7 @@ loop do
     unless flag
       tomorrow = Date.today + 1
       QKbot::Twitter.tweet_info(tomorrow, logger, ENV)
-      QKbot::Discord.post_info(tomorrow, logger, ENV)
+      QKbot::Discord.post_allserver(tomorrow, logger, ENV)
       flag = true
     end
   else
