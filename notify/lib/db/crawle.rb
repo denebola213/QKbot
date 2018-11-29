@@ -107,7 +107,12 @@ module QKbot
         first_date = Date.new
         tfirst_date = Unicode::nfkc(nodeset.xpath("div/p[2]/span").text)
         tfirst_date.match(/(\d+)\/(\d+)/) do |md|
-          first_date = Date.new(update.year, md[1].to_i, md[2].to_i)
+          #年末のとき
+          if (update.month - md[1].to_i) > 6 then
+            first_date = Date.new(update.year + 1, md[1].to_i, md[2].to_i)
+          else
+            first_date = Date.new(update.year, md[1].to_i, md[2].to_i)
+          end
         end
         
         #first_dateからDBの更新日を検索
