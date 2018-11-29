@@ -119,11 +119,11 @@ module QKbot
         end
 
         #情報更新日がdb上の更新日より過去だったら飛ばす
-        if update <= db_update
+        if update <= db_update then
           next
+        else
+          flag_update = true
         end
-
-        flag_update = true
 
         #一週間個別のURLを取得
         week_url = nodeset.css('a')[0][:href]
@@ -279,7 +279,9 @@ module QKbot
       end
       
       # DB更新したら(flag_update == ture)
-      logger.info("insert Kyuko infomation in database") if flag_update
+      if flag_update
+        logger.info("insert Kyuko infomation in database")
+      end
 
       db.close
     end
